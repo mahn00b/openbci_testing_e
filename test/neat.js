@@ -1,7 +1,7 @@
 /* Import */
 var chai = require('chai');
 var assert = chai.assert;
-
+var neataptic = require('neataptic');
 /* Shorten var names */
 var { Network, methods, config } = neataptic;
 

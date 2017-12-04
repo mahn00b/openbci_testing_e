@@ -1,10 +1,37 @@
 /* Import */
 var chai = require('chai');
 var assert = chai.assert;
-
+var neataptic = require('neataptic');
 /* Shorten var names */
 var { architect, Network, methods, config } = neataptic;
+var WIDTH            = $('#field').width();
+var HEIGHT           = 800;
 
+var MAX_AREA         = 10000;
+var MIN_AREA         = 400;
+
+var RELATIVE_SIZE    = 1.1;
+var DECREASE_SIZE    = 0.998;
+
+var DETECTION_RADIUS = 150;
+var FOOD_DETECTION   = 3;
+var PLAYER_DETECTION = 3;
+
+var MIN_SPEED        = 0.6;
+var SPEED            = 3;
+
+var FOOD_AREA        = 80;
+var FOOD_AMOUNT      = Math.round(WIDTH * HEIGHT * 4e-4);
+
+// GA settings
+var PLAYER_AMOUNT     = Math.round(WIDTH * HEIGHT * 8e-5);
+var ITERATIONS        = 1000;
+var START_HIDDEN_SIZE = 0;
+var MUTATION_RATE     = 0.3;
+var ELITISM_PERCENT   = 0.1;
+
+// Trained population
+var USE_TRAINED_POP = true;
 /* Turn off warnings */
 config.warnings = false;
 
