@@ -1,0 +1,58 @@
+{
+  "name": "openbci_testing_environment",
+  "version": "0.1.0",
+  "description": "A library used to gather, organize and interpret data from openbci",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files --preset electron",
+    "start": "npm run build && electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mahn00b/openbci_testing_e.git"
+  },
+  "keywords": [
+    "openbci",
+    "testing",
+    "neural-net"
+  ],
+  "authors": [
+    {
+      "name": "Adam",
+      "github_username": "lol",
+      "email": "lol"
+    },
+    {
+      "name": "Lela",
+      "github_username": "lol",
+      "email": "lol"
+    },
+    {
+      "name": "Mahmoud Yousif",
+      "github_username": "mahn00b",
+      "email": "myousif123@gmail.com"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mahn00b/openbci_testing_e/issues"
+  },
+  "homepage": "https://github.com/mahn00b/openbci_testing_e#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-electron": "^1.4.15",
+    "body-parser": "^1.18.2",
+    "electron": "1.7.9",
+    "express": "^4.16.2",
+    "mongodb": "^3.0.0-rc0",
+    "neataptic": "^1.4.7",
+    "openbci": "^2.2.0",
+    "rimraf": "^2.6.2"
+  },
+  "devDependencies": {
+    "git-it": "^1.6.9",
+    "learnyoumongo": "^3.2.1",
+    "learnyounode": "^3.5.10"
+  }
+}
