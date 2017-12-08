@@ -4,10 +4,9 @@ var argv = require('yargs').argv;
 var async = require('async');
 var jsonfile = require('jsonfile');
 var OpenBCIBoard = require('openbci-sdk');
-var neataptic = require('neatapticnpm');
+var neataptic = require('neataptic');
 var jsdom = require('jsdom');
 var expect = require('chai').expect;
-//var dsp = require('dsp.js');
 var Node = neataptic.Node;
 var Neat = neataptic.Neat;
 var Network = neataptic.Network;
@@ -18,8 +17,8 @@ var Trainer = neataptic.Trainer;
 var randomExperiment;
 var trainedNetwork;
 var channelsToFilter = []; // Add channels to filter. Eg.: ['2','4']
-var networkStateFilePath = path.join(__dirname, '/neural-network/state.json');
-var experimentFilesPath = path.join(__dirname, '/data/*.json');
+var networkStateFilePath = path.join(__dirname, '/network_states/state.json');
+var experimentFilesPath = path.join(__dirname, '../../resources/test_data/*.json');
 var action = argv._[0] || null;
 // OpenBCI
 const board = new OpenBCIBoard.OpenBCIBoard();
