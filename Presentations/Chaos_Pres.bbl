@@ -1,0 +1,52 @@
+\begin{thebibliography}{RBGL15}
+
+\bibitem[KMO13]{kothe_emotion_2013}
+Christian~Andreas Kothe, Scott Makeig, and Julie~Anne Onton.
+\newblock Emotion recognition from {EEG} during self-paced emotional imagery.
+\newblock In {\em Affective {Computing} and {Intelligent} {Interaction}
+  ({ACII}), 2013 {Humaine} {Association} {Conference} on}, pages 855--858.
+  IEEE, 2013.
+
+\bibitem[Orf96]{orfanidis_introduction_1996}
+Sophocles~J. Orfanidis.
+\newblock {\em Introduction to signal processing}.
+\newblock Prentice {Hall} signal processing series. Prentice Hall, Englewood
+  Cliffs, N.J, 1996.
+
+\bibitem[RBGL15]{rodriguez-bermudez_analysis_2015}
+Germán Rodríguez-Bermúdez and Pedro~J. Garcia-Laencina.
+\newblock Analysis of {EEG} signals using nonlinear dynamics and chaos: a
+  review.
+\newblock {\em Applied Mathematics \& Information Sciences}, 9(5):2309, 2015.
+
+\bibitem[SZS04]{shwartz_ica_2004}
+Sarit Shwartz, Michael Zibulevsky, and Yoav~Y. Schechner.
+\newblock {ICA} using kernel entropy estimation with {NlogN} complexity.
+\newblock {\em Lecture notes in computer science}, pages 422--429, 2004.
+
+\bibitem[UCS98]{ulbikas_chaos_1998}
+J.~Ulbikas, A.~Cenys, and O.~P. Sulimova.
+\newblock Chaos parameters for {EEG} analysis.
+\newblock {\em Nonlinear Analysis: Modelling and Control}, 3:1--8, 1998.
+
+\bibitem[XZ]{xiu_multivariate_nodate}
+Yan Xiu and Wei Zhang.
+\newblock Multivariate {Chaotic} {Time} {Series} {Prediction} {Based} on {NARX}
+  {Neural} {Networks}.
+
+\bibitem[YC18]{czarnowski_patients_2018}
+Longhao Yuan and Jianting Cao.
+\newblock Patients’ {EEG} {Data} {Analysis} via {Spectrogram} {Image} with a
+  {Convolution} {Neural} {Network}.
+\newblock In Ireneusz Czarnowski, Robert~J. Howlett, and Lakhmi~C. Jain,
+  editors, {\em Intelligent {Decision} {Technologies} 2017}, volume~72, pages
+  13--21. Springer International Publishing, Cham, 2018.
+\newblock DOI: 10.1007/978-3-319-59421-7\_2.
+
+\bibitem[Yur14]{yurci_emotion_2014}
+Erim Yurci.
+\newblock Emotion {Detection} {From} {EEG} {Signals}: {Correlating} {Cerebral}
+  {Cortex} {Activity} with {Music} {Evoked} {Emotion}.
+\newblock {\em Universitat Pompeu Fabra, Barcelona}, 2014.
+
+\end{thebibliography}
