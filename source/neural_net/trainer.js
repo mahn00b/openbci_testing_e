@@ -2,6 +2,7 @@ var glob = require("glob");
 var path = require('path');
 var argv = require('yargs').argv;
 var async = require('async');
+var await = require('asyncawait/await');
 var jsonfile = require('jsonfile');
 var OpenBCIBoard = require('openbci-sdk');
 var neataptic = require('neataptic');
@@ -13,11 +14,10 @@ var Network = neataptic.Network;
 var Methods = neataptic.Methods;
 var Architect = neataptic.Architect;
 var Trainer = neataptic.Trainer;
-
 var randomExperiment;
 var trainedNetwork;
 var channelsToFilter = []; // Add channels to filter. Eg.: ['2','4']
-var networkStateFilePath = path.join(__dirname, '/network_states/state.json');
+var networkStateFilePath = path.join(__dirname, './network_states/state_v1.json');
 var experimentFilesPath = path.join(__dirname, '../../resources/test_data/*.json');
 var action = argv._[0] || null;
 // OpenBCI
@@ -31,45 +31,66 @@ let classifiers = {};
  * @type {Array}
  */
 glob(experimentFilesPath, (error, experimentFiles) => {
-    experimentFiles = experimentFiles
-        .map((experimentFile) => {
-            return async.apply(jsonfile.readFile, experimentFile)
+    experimentFiles = experimentFiles.map((experimentFile) => {
+        return async.apply(jsonfile.readFile, experimentFile);
         });
     
     async.parallel(experimentFiles, (error, experiments) => {
         if (error) return console.log('failed to load experiments');
-        experiments.forEach(x=>{classifiers[x.name] = 0});
-        
-        // experiments = experiments.map(x=>{
-        //     //console.log(x);
-        //     x['patterns'].map(y=>{
-        //         console.log(dft.forward(y['input']));
-        //         return dft.forward(y['input']);
-        //     });
-        // });
-        // experiments.forEach(x=>{console.log(x)});
+        experiments.forEach(x=>{classifiers[x.name] = 0;});
         
         if (action === 'exercise') {
             var patterns = getPatternsFromExperiments(experiments);
             exercise(patterns,experimentFiles.length);
+            
+            
         }
         if (action === 'test') {
             var experiments = getPatternsFromExperiments(experiments);
-            //randomExperiment = experiments[
-            //    Math.floor(Math.random() * experiments.length)];
-            //console.log('testing: ' + randomExperiment.name);
-            experiments.forEach(x=>{
-                test(x);
-            });
+            randomExperiment = experiments[
+               Math.floor(Math.random() * experiments.length)];
+            console.log('testing: ' + randomExperiment.name);
+            test(randomExperiment);
         }
         if (action === 'interpret') {
             jsonfile.readFile(networkStateFilePath, (error, networkState) => {
-                trainedNetwork = new Network.fromJSON(networkState);
+                trainedNetwork = new neataptic.Network.fromJSON(networkState);
                 board.autoFindOpenBCIBoard()
                     .then(onBoardFind);
             });
 
         }
+        if (action === 'mutate') {
+            var experiment = getPatternsFromExperiments(experiments);
+            
+            jsonfile.readFile(networkStateFilePath, (error, networkState)=>{
+                trainedNetwork = new neataptic.Network.fromJSON(networkState);
+                async.apply(
+                    await,
+                    trainedNetwork.evolve(experiment, {
+                        
+                        mutation: neataptic.methods.mutation.ALL,
+                        
+                        equal: true,
+                        
+                        popsize: 100,
+                        
+                        elitism: 10,
+                        
+                        log: 10,
+                        
+                        error: 0.01,
+                        
+                        iterations: 1000,
+                        
+                        mutationRate: 0.5
+                        
+                    })                            
+                );
+                var mutateState = trainedNetwork.toJSON();
+                jsonfile.writeFileSync(networkStateFilePath, mutateState);                
+            });            
+        };            
     });
 });
 
@@ -110,7 +131,7 @@ function getRandomPatternFromExperiments (experiments) {
  */
 function exercise (patterns,numFiles) {
     //console.log('training...', patterns);
-    var net = new neataptic.architect.NARX(8,[8,8,6,4],1,8,8);
+    var net = new neataptic.architect.NARX(8,[6,4],1,8,8);
     
     net.train(patterns, {
         log: 100,
@@ -206,7 +227,7 @@ function getMostAccurate (output) {
             result = {
                 keyword: keyword,
                 accuracy: output[keyword]
-            }
+            };
         }
     });
     //console.log(result);
