@@ -10,7 +10,7 @@
 \headcommand {\beamer@subsectionentry {0}{2}{1}{2}{frame 1}}\headcommand {\beamer@subsectionpages {2}{1}}
 \headcommand {\slideentry {2}{1}{1}{2/2}{frame 1}{0}}
 \headcommand {\beamer@framepages {2}{2}}
-\headcommand {\sectionentry {3}{\scshape Analysis}{3}{\scshape Analysis}{0}}
+\headcommand {\sectionentry {3}{\scshape Background Information}{3}{\scshape Background Information}{0}}
 \headcommand {\beamer@sectionpages {2}{2}}
 \headcommand {\beamer@subsectionpages {2}{2}}
 \headcommand {\beamer@subsectionentry {0}{3}{1}{3}{frame 2}}\headcommand {\beamer@subsectionpages {3}{2}}
@@ -19,23 +19,32 @@
 \headcommand {\beamer@subsectionentry {0}{3}{2}{4}{frame 3}}\headcommand {\beamer@subsectionpages {3}{3}}
 \headcommand {\slideentry {3}{2}{1}{4/4}{frame 3}{0}}
 \headcommand {\beamer@framepages {4}{4}}
-\headcommand {\beamer@subsectionentry {0}{3}{3}{5}{frame 4}}\headcommand {\beamer@subsectionpages {4}{4}}
-\headcommand {\slideentry {3}{3}{1}{5/5}{frame 4}{0}}
+\headcommand {\sectionentry {4}{\scshape Analysis}{5}{\scshape Analysis}{0}}
+\headcommand {\beamer@sectionpages {3}{4}}
+\headcommand {\beamer@subsectionpages {4}{4}}
+\headcommand {\beamer@subsectionentry {0}{4}{1}{5}{frame 4}}\headcommand {\beamer@subsectionpages {5}{4}}
+\headcommand {\slideentry {4}{1}{1}{5/5}{frame 4}{0}}
 \headcommand {\beamer@framepages {5}{5}}
-\headcommand {\beamer@subsectionentry {0}{3}{4}{6}{frame 5}}\headcommand {\beamer@subsectionpages {5}{5}}
-\headcommand {\slideentry {3}{4}{1}{6/6}{frame 5}{0}}
+\headcommand {\beamer@subsectionentry {0}{4}{2}{6}{frame 5}}\headcommand {\beamer@subsectionpages {5}{5}}
+\headcommand {\slideentry {4}{2}{1}{6/6}{frame 5}{0}}
 \headcommand {\beamer@framepages {6}{6}}
-\headcommand {\beamer@subsectionentry {0}{3}{5}{7}{frame 6}}\headcommand {\beamer@subsectionpages {6}{6}}
-\headcommand {\slideentry {3}{5}{1}{7/7}{frame 6}{0}}
+\headcommand {\beamer@subsectionentry {0}{4}{3}{7}{frame 6}}\headcommand {\beamer@subsectionpages {6}{6}}
+\headcommand {\slideentry {4}{3}{1}{7/7}{frame 6}{0}}
 \headcommand {\beamer@framepages {7}{7}}
-\headcommand {\sectionentry {4}{\scshape References}{8}{\scshape References}{0}}
-\headcommand {\beamer@sectionpages {3}{7}}
-\headcommand {\beamer@subsectionpages {7}{7}}
-\headcommand {\beamer@subsectionentry {0}{4}{1}{8}{last}}\headcommand {\beamer@subsectionpages {8}{7}}
-\headcommand {\slideentry {4}{1}{1}{8/8}{last}{0}}
+\headcommand {\beamer@subsectionentry {0}{4}{4}{8}{frame 7}}\headcommand {\beamer@subsectionpages {7}{7}}
+\headcommand {\slideentry {4}{4}{1}{8/8}{frame 7}{0}}
 \headcommand {\beamer@framepages {8}{8}}
-\headcommand {\beamer@partpages {1}{8}}
-\headcommand {\beamer@subsectionpages {8}{8}}
-\headcommand {\beamer@sectionpages {8}{8}}
-\headcommand {\beamer@documentpages {8}}
-\headcommand {\def \inserttotalframenumber {8}}
+\headcommand {\beamer@subsectionentry {0}{4}{5}{9}{frame 8}}\headcommand {\beamer@subsectionpages {8}{8}}
+\headcommand {\slideentry {4}{5}{1}{9/9}{frame 8}{0}}
+\headcommand {\beamer@framepages {9}{9}}
+\headcommand {\sectionentry {5}{\scshape References}{10}{\scshape References}{0}}
+\headcommand {\beamer@sectionpages {5}{9}}
+\headcommand {\beamer@subsectionpages {9}{9}}
+\headcommand {\beamer@subsectionentry {0}{5}{1}{10}{last}}\headcommand {\beamer@subsectionpages {10}{9}}
+\headcommand {\slideentry {5}{1}{1}{10/10}{last}{0}}
+\headcommand {\beamer@framepages {10}{10}}
+\headcommand {\beamer@partpages {1}{10}}
+\headcommand {\beamer@subsectionpages {10}{10}}
+\headcommand {\beamer@sectionpages {10}{10}}
+\headcommand {\beamer@documentpages {10}}
+\headcommand {\def \inserttotalframenumber {10}}

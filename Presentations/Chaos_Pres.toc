@@ -2,11 +2,14 @@
 \beamer@sectionintoc {1}{\scshape Introduction}{1}{0}{1}
 \beamer@sectionintoc {2}{\scshape Motivation}{2}{0}{2}
 \beamer@subsectionintoc {2}{1}{frame 1}{2}{0}{2}
-\beamer@sectionintoc {3}{\scshape Analysis}{3}{0}{3}
+\beamer@sectionintoc {3}{\scshape Background Information}{3}{0}{3}
 \beamer@subsectionintoc {3}{1}{frame 2}{3}{0}{3}
 \beamer@subsectionintoc {3}{2}{frame 3}{4}{0}{3}
-\beamer@subsectionintoc {3}{3}{frame 4}{5}{0}{3}
-\beamer@subsectionintoc {3}{4}{frame 5}{6}{0}{3}
-\beamer@subsectionintoc {3}{5}{frame 6}{7}{0}{3}
-\beamer@sectionintoc {4}{\scshape References}{8}{0}{4}
-\beamer@subsectionintoc {4}{1}{last}{8}{0}{4}
+\beamer@sectionintoc {4}{\scshape Analysis}{5}{0}{4}
+\beamer@subsectionintoc {4}{1}{frame 4}{5}{0}{4}
+\beamer@subsectionintoc {4}{2}{frame 5}{6}{0}{4}
+\beamer@subsectionintoc {4}{3}{frame 6}{7}{0}{4}
+\beamer@subsectionintoc {4}{4}{frame 7}{8}{0}{4}
+\beamer@subsectionintoc {4}{5}{frame 8}{9}{0}{4}
+\beamer@sectionintoc {5}{\scshape References}{10}{0}{5}
+\beamer@subsectionintoc {5}{1}{last}{10}{0}{5}

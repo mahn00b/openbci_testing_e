@@ -4,11 +4,13 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \usepackage{graphicx}
+%\usepackage{subcaption}
+\graphicspath{{./},{../ResearchProposal/Images/}} %Images path set to folder in this directory
 \usepackage{tikz}
 \usepackage{animate}
 \usetikzlibrary{decorations.fractals}
-\usepackage{subfigure}
-
+%\usepackage{subfigure}
+\usepackage{subcaption}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -21,14 +23,14 @@
 \setbeamerfont{title like}{shape=\scshape}
 \setbeamerfont{frametitle}{shape=\scshape}
 
-\setbeamercolor*{lower separation line head}{bg=DeepSkyBlue4} 
-\setbeamercolor*{normal text}{fg=black,bg=white} 
-\setbeamercolor*{alerted text}{fg=red} 
-\setbeamercolor*{example text}{fg=black} 
-\setbeamercolor*{structure}{fg=black} 
- 
-\setbeamercolor*{palette tertiary}{fg=black,bg=black!10} 
-\setbeamercolor*{palette quaternary}{fg=black,bg=black!10} 
+\setbeamercolor*{lower separation line head}{bg=DeepSkyBlue4}
+\setbeamercolor*{normal text}{fg=black,bg=white}
+\setbeamercolor*{alerted text}{fg=red}
+\setbeamercolor*{example text}{fg=black}
+\setbeamercolor*{structure}{fg=black}
+
+\setbeamercolor*{palette tertiary}{fg=black,bg=black!10}
+\setbeamercolor*{palette quaternary}{fg=black,bg=black!10}
 
 \renewcommand{\(}{\begin{columns}}
 \renewcommand{\)}{\end{columns}}
@@ -61,9 +63,9 @@
 	{\it Salisbury University}\\
 }
 \date{
-	\begin{tikzpicture}[decoration=Koch curve type 2] 
-		\draw[DeepSkyBlue4] decorate{ decorate{ decorate{ (0,0) -- (2,0) }}}; 
-	\end{tikzpicture}  
+	\begin{tikzpicture}[decoration=Koch curve type 2]
+		\draw[DeepSkyBlue4] decorate{ decorate{ decorate{ (0,0) -- (2,0) }}};
+	\end{tikzpicture}
 	\\
 	\vspace{1cm}
 	\today
@@ -84,17 +86,68 @@
 \end{itemize}
 \begin{figure}
 \centering
-\subfigure[\text{Channel 1 Spectrogram}]{\includegraphics[width=1.6in]{Channel_1_Spec_Blink_Test.png}}
+\begin{subfigure}[b]{0.3\textwidth}%[\text{Channel 1 Spectrogram}]
+{\includegraphics[width=1.6in]{Channel_1_Spec_Blink_Test.png}}
+\end{subfigure}
 \hspace{10mm}
-\subfigure[\text{Channel 2 Spectrogram}]{\includegraphics[width=1.6in]{Channel_2_Spec_Blink_Test.png}}
-\hspace{10mm}
+\begin{subfigure}[b]{0.3\textwidth}%[\text{Channel 2 Spectrogram}]
+{\includegraphics[width=1.6in]{Channel_2_Spec_Blink_Test.png}}
+\end{subfigure}
+\hspace{2mm}
 \end{figure}
 \end{frame}
 
+\section{\scshape Background Information}
+\subsection{frame 2}
+\begin{frame}{Preliminary Information}
+  \begin{itemize}
+  \item
+    $\textit{Electroencephalography}$: the measurement of neuronal function given by the \textit{ionic gradient} of neuronal membranes
+  \item
+    \textit{The Neuron}: Composed of a cell body (\textit{Soma}), signal receptors (\textit{Dendrites}), and signal transmitters (\textit{axon})
+  \item
+    \textit{Excitatory Postsynaptic Potentials} (ESP) and \textit{Inhibitory Postsynaptic Potentials} (ISP)
+  \end{itemize}
+  \begin{figure}[h]
+    \centering
+    \includegraphics[width=1.3in]{Neuron.png}
+    \caption{Sample Neuron}
+    \label{fig:neuron}
+   \end{figure}
+\end{frame}
+
+\subsection{frame 3}
+\begin{frame}{Artificial Neural Networks (ANNs)}
+\begin{itemize}
+\item \textit{ANN}: information processing system composed of \textit{perceptrons}
+\item \textit{Directed Graph}: ANNs are represented using directed graphs and adjacency matrices
+\end{itemize}
+\begin{figure}
+\centering
+\begin{subfigure}[c]{0.4\linewidth}
+\includegraphics[width=1.1\linewidth]{DiGraph.pdf}
+\end{subfigure}
+\hspace{8mm}
+\begin{subfigure}[c]{0.3\linewidth}
+\resizebox{1.5\linewidth}{!}{\begin{tabular}{cccccccc}
+  & $x_1$ & $x_2$ & $u_1$ & $u_2$ & $u_3$ & $u_4$ & $y_1$ \\
+ $x_1$ & 0 & 0 & 2 & 0 & 0 & 0 & 0 \\
+ $x_2$ & 0 & 0 & 0 & 2 & 0 & 0 & 0 \\
+ $u_1$ & 0 & 0 & 0 & 0 & 4 & 0 & 0 \\
+ $u_2$ & 0 & 0 & 0 & 0 & 3 & 3 & 0 \\
+ $u_3$ & 0 & 0 & 0 & 0 & 0 & 0 & 1 \\
+ $u_4$ & 0 & 0 & 2 & 0 & 0 & 0 & 0 \\
+ $y_1$ & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+  \end{tabular}}
+  \end{subfigure}
+  \hspace{10mm}
+\caption{Sample Network and Network Structure}
+\end{figure}
+\end{frame}
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \section{\scshape Analysis}
-\subsection{frame 2}
+\subsection{frame 4}
 \begin{frame}{Translation from the Time Domain}
 
 \begin{itemize}
@@ -110,14 +163,14 @@ Multiplying by low and high pass filters, $$\frac{t}{\tau + t},\frac{\tau}{t+\ta
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{frame 3}
+\subsection{frame 5}
 \begin{frame}{Frequency Domain}
 \begin{itemize}
 \item Why look at frequency?
 \end{itemize}
 \begin{figure}[h]
    \centering
-   \includegraphics[width=3in]{Fourier.pdf} 
+   \includegraphics[width=3in]{Fourier.pdf}
    \label{fig:example}
 \end{figure}
 \end{frame}
@@ -125,7 +178,7 @@ Multiplying by low and high pass filters, $$\frac{t}{\tau + t},\frac{\tau}{t+\ta
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{frame 4}
+\subsection{frame 6}
 \begin{frame}{Time-Frequency Domain (wavelets)}
 \begin{itemize}
 \item The individual wavelet defined as, $$\psi^{a,b}(x)=\left\vert a\right\vert^{-1/2}\psi \left(\frac{x-b}{a}\right)$$
@@ -139,15 +192,15 @@ Multiplying by low and high pass filters, $$\frac{t}{\tau + t},\frac{\tau}{t+\ta
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{frame 5}
+\subsection{frame 7}
 \begin{frame}{Artifact Removal and return to Linearity}
 \begin{itemize}
 \item For all $f(t)$ we want to find $\mathbf{M}$ such that $f(t)\mathbf{M}=\mathbf{s}$ where all $\mathbf{s}$ are maximally independent
 \item Generally referred to as an \textit{independent component analysis} and used in unsupervised machine learning
 \end{itemize}
-\begin{figure}[h] 
+\begin{figure}[h]
    \centering
-   \includegraphics[width=2in]{Time_Series.pdf} 
+   \includegraphics[width=2in]{Time_Series.pdf}
    \caption{Processed Time-Series Data}
    \label{fig:example}
 \end{figure}
@@ -156,7 +209,7 @@ Multiplying by low and high pass filters, $$\frac{t}{\tau + t},\frac{\tau}{t+\ta
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\subsection{frame 6}
+\subsection{frame 8}
 \begin{frame}{Chaotic Time-Series Prediction}
 \begin{itemize}
 \item Nonlinear autoregressive exogenus model (NARX)
