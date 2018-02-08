@@ -23,4 +23,4 @@ Created by students researching brain-computer interfacing at <b><a href="https:
 
 Resources:
 http://www.shogun-toolbox.org/examples/latest/examples/regression/linear_ridge_regression.html
-
+https://github.com/NeuroJS/bci-course/blob/master/README.md
