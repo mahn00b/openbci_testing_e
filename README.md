@@ -18,9 +18,8 @@ Created by students researching brain-computer interfacing at <b><a href="https:
 
   - **OpenBCI** and their dev team for making all of this open-source: http://openbci.com/
   - **Josh de Leeuw** for building JSPsych: http://docs.jspsych.org/
-  - **wagenaartje** for building Neataptic: https://wagenaartje.github.io/neataptic/
-  
-  - **NueroJs** for lab tutorialshttps://github.com/NeuroJS/bci-course/blob/master/README.md
+  - **wagenaartje** for building Neataptic: https://wagenaartje.github.io/neataptic/ 
+  - **NueroJs** for lab tutorials https://github.com/NeuroJS/bci-course/blob/master/README.md
 
 #### Resources:
 http://www.shogun-toolbox.org/examples/latest/examples/regression/linear_ridge_regression.html
