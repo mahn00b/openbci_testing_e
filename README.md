@@ -21,4 +21,6 @@ Created by students researching brain-computer interfacing at <b><a href="https:
 <li><b>wagenaartje</b> for building <i>Neataptic</i>: https://wagenaartje.github.io/neataptic/</li>
 </ul>
 
+Resources:
+http://www.shogun-toolbox.org/examples/latest/examples/regression/linear_ridge_regression.html
 
