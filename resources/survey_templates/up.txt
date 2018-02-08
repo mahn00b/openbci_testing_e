@@ -1,0 +1,7 @@
+{ test_name: up,
+ num_questions: ,
+ img_dir: "/resources/survey_images/up/"
+}
+
+
+
