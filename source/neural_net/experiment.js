@@ -4,7 +4,7 @@ var argv = require('yargs').argv;
 var args = require('minimist')(process.argv.slice(2));
 var jsonfile = require('jsonfile');
 var OpenBCIBoard = require('openbci');
-var channels = ['1','2','3','4','5','6','7','8'];
+var channels = ['1','2']; //set to only the frontal lobe nodes
 let testname = args['_'][3];
 
 // Experiment Model
@@ -58,6 +58,8 @@ function addSample (sample) {
     input['output']=[0];
     experiment.patterns.push(input);
 }
+
+
 
 // Save experiment
 function saveExperiment () {

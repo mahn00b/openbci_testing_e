@@ -2,58 +2,45 @@
 <html>
 
 <head>
-  <script src="scripts/jquery.min.js"></script>
-  <script src="scripts/jspsych.js"></script>
-  <script src="plugins/jspsych-single-stim.js"></script>
-  <link rel="stylesheet" href="styles/jspsych.css"/>
-  <style>
-    img {
-      width: 300px;
-    }
-  </style>
+  <script src="../../external_libs/JQuery/jquery.min.js"></script>
+  <script src="../../external_libs/JSPsych/jspsych.js"></script>
+  <script src="../../plugins/jspsych-single-stim.js"></script>
+
+  <link rel="stylesheet" href="../../styles/jspsych.css"/>
+  <link rel="stylesheet" href="../../styles/blink-test.css"/>
 </head>
 
 <body>
+<!--
+<form>
+  <div class="input-field">
+    <h2 class="input-label">First Name</h2>
+    <input class="input-box"/>
+  </div>
+</form>
+
   <div id="loader" class="centert">Loading</div>
   <div id="jspsych-target"></div>
+-->
+<div id="jspsych-target"></div>
+
 </body>
 <script>
+
   var dots = 0;
   //var loading = setInterval(animateLoader, 100);
  // var checkForLoad = setInterval(waitForConnection, 500);
 
   var block_1 = {
-    type: 'single-stim',
-    stimulus: 'images/happy_face_1.jpg',
-    choices: [89, 78], // Y or N
-    prompt: '<p class="center-content">Have you seen this face before? Y or N.</p>',
-    on_finish: function() {
-      jsPsych.data.addDataToLastTrial({
-        correct: true,
-        sample: $.get('/brainScan')
+    type: 'blink-test',
 
 
-      });
-
-
-
-    }
   };
 
 
-  function waitForConnection(){
-
-      if($.get('/brainConnected') === true){
-          clearInterval(loading);
-          clearInterval(checkForLoad);
 
 
 
-      }
-
-
-
-  }
 
   jsPsych.init({
       display_element: $('#jspsych-target'),
@@ -64,17 +51,6 @@
   });
 
 
-
-
-  function animateLoader(){
-      if(dots == 3){
-          dots = 0;
-          $('#loader').text('Loader');
-      }else {
-          dots++;
-          $('#loader').appendText('.')
-      }
-  }
 
 
 
