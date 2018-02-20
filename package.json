@@ -5,7 +5,7 @@
   "main": "main.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./libraries,./source/neural_net,./Presentations,./ResearchProposal,./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files --preset electron",
+    "build": "rimraf dist/ && babel ./ --out-dir dist/ --ignore ./libraries,./source/neural_net/,./Presentations,./ResearchProposal,./node_modules,./.babelrc,./package.json,./npm-debug.log --copy-files --preset electron",
     "start": "npm run build && electron ."
   },
   "repository": {

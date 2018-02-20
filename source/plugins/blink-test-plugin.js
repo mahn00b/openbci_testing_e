@@ -20,12 +20,17 @@ jsPsych.plugins['blink-test'] = (function(){
     plugin.trial = function(display_element, trial){
 
 
-        // if any trial variables are functions
-        // this evaluates the function and replaces
-        // it with the output of the function
-        trial = jsPsych.pluginAPI.evaluateFunctionParameters(trial);
+
+        //Arguments for this library are sent via JSON on JSpsych initialization
+
+        //optional callback arguments to call when sampling subject
+        if(typeof  trial.onSample === "function")  plugin.info.parameters.onSample = trial.onSample;
 
 
+        plugin.info.parameters.sample_duration = trial.sample_duration || 1;//time for blink light on
+        plugin.info.parameters.num_trials = trial.num_trials || 5;//number of trials to take
+        plugin.info.parameters.random_interval = trial.random_interval === true;//if set to true then time between trials will be random
+        plugin.info.parameters.time_interval = trial.time_interval || 3;//time interval between trials if not random
 
 
        var element =  'When the test begins, you will see a circle light up(as seen below)'
@@ -48,34 +53,65 @@ jsPsych.plugins['blink-test'] = (function(){
                         +'Trials Left: <p id="num-trials">'+ plugin.info.parameters.samples +'</p>';
             display_element.append(element);
 
+            var time = plugin.info.parameters.time_interval * 1000;
+
+            if(plugin.info.parameters.random_interval) time = randomTime(plugin.info.parameters.time_interval);
+
+            setTimeout(performTrial, time);
         });
 
 
 
 
-
-
-
-
-        jsPsych.finishTrial();
     };
 
 
 
-    function performTest(){
+    function performTrial(){
 
         toggleLight();
 
 
-        if(typeof plugin.parameters.onSample === 'undefined'){
+        if(typeof plugin.info.parameters.onSample === 'undefined'){
 
             console.log("sample this");
 
-        }else plugin.parameters.onSample();
+        }else plugin.info.parameters.onSample();
 
-        setTimeout(nextTrial, )
+
+
+        setTimeout(endTrial, plugin.info.parameters.sampling_time);
 
     }
+
+
+
+    function endTrial(){
+
+        toggleLight();
+
+        plugin.info.parameters.num_trials--;
+
+
+        if(plugin.info.parameters.num_trials === 0) jsPsych.endExperiment("Trials over");
+        else{
+
+
+            var time = plugin.info.parameters.time_interval * 1000;
+
+            if(plugin.info.parameters.random_interval) time = randomTime(plugin.info.parameters.time_interval);
+
+            setTimeout(performTrial, time);
+
+
+
+        }
+
+
+    }
+
+
+
 
 
     function nextTrial(){
@@ -88,8 +124,8 @@ jsPsych.plugins['blink-test'] = (function(){
      * @return void
      * */
     function toggleLight() {
-        $('#circle').css("background", (plugin.toggle_light ?  plugin.light_off: plugin.light_on));
-        plugin.toggle_light = (plugin.toggle_light%2 - 1);
+        $('#circle').css("background", (plugin.info.parameters.toggle_light ?  plugin.info.parameters.light_off: plugin.info.parameters.light_on));
+        plugin.info.parameters.toggle_light = (plugin.info.parameters.toggle_light%2 - 1);
     }
 
     /*
