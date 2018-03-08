@@ -1,0 +1,7 @@
+setup.py
+openbci_node_python.egg-info/PKG-INFO
+openbci_node_python.egg-info/SOURCES.txt
+openbci_node_python.egg-info/dependency_links.txt
+openbci_node_python.egg-info/not-zip-safe
+openbci_node_python.egg-info/requires.txt
+openbci_node_python.egg-info/top_level.txt
