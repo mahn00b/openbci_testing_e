@@ -1,0 +1,8 @@
+//Note: General instructions for to give to research subject before subject.
+
+Thank you for participating in this experiment. The survey your about to take will allow us the opportunity to analyze electrical signals
+your brain gives off. Many of these questions are focused on getting you to think about a specfic concept. The concept may or may not be 
+disclosed by the researchers conducting the experiment. Since our results rely on how much you think about this the subject matter, please
+try and stay focused on it. The questions in this survey may be open-ended, not requiring a response. For these questions, you simply need 
+to think about the answer, unless otherwise stated. For questions asking for a response, simply give an appropriate response. Report any errors
+to the supervising researcher.

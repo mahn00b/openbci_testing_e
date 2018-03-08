@@ -1,0 +1,63 @@
+<!doctype html>
+<html>
+
+<head>
+  <script src="../../external_libs/JQuery/jquery.min.js"></script>
+  <script src="../../external_libs/JSPsych/jspsych.js"></script>
+  <script src="../../plugins/jspsych-single-stim.js"></script>
+
+  <link rel="stylesheet" href="../../styles/jspsych.css"/>
+  <link rel="stylesheet" href="../../styles/blink-test.css"/>
+</head>
+
+<body>
+<!--
+<form>
+  <div class="input-field">
+    <h2 class="input-label">First Name</h2>
+    <input class="input-box"/>
+  </div>
+</form>
+
+  <div id="loader" class="centert">Loading</div>
+  <div id="jspsych-target"></div>
+-->
+<div id="jspsych-target"></div>
+
+</body>
+<script>
+
+  var dots = 0;
+  //var loading = setInterval(animateLoader, 100);
+ // var checkForLoad = setInterval(waitForConnection, 500);
+
+  var block_1 = {
+    type: 'blink-test',
+     onSample: function(){
+        console.log("muhahahahaha");
+     }
+
+
+  };
+
+
+
+
+
+
+  jsPsych.init({
+      display_element: $('#jspsych-target'),
+      timeline: [block_1],
+      on_finish: function() {
+          jsPsych.data.displayData();
+      }
+  });
+
+
+
+
+
+
+</script>
+
+</html>
