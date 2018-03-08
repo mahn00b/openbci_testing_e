@@ -12,7 +12,7 @@ const fs = require('fs');
 
 
 //add static assest: images, icons, stylesheets
-app.use('/scripts', express.static(path.join(__dirname, 'source/js')));
+app.use('/scripts', express.static(path.join(__dirname, 'source/scripts')));
 app.use('/plugins', express.static(path.join(__dirname, 'source/plugins')));
 app.use('/images', express.static(path.join(__dirname, 'resources/images')));
 
@@ -25,7 +25,7 @@ app.use('/styles', express.static(path.join(__dirname, 'source/styles')));
 
 app.get('/', function (request, response) {
 
-    response.sendFile(path.join(__dirname,'source','views', 'openbci_tests','vertical_direction_test.html'));
+    response.sendFile(path.join(__dirname,'index.html'));
 
 
 });
@@ -44,6 +44,5 @@ app.get('/brainConnected', function(response,request){
 
 });
 
-function setToTrue () { theMan = true;}
 
 app.listen(8081);

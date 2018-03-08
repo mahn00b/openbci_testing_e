@@ -1,20 +1,62 @@
-<!DOCTYPE html>
-<!-- Sample -->
+<!doctype html>
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    <!-- All of the Node.js APIs are available in this renderer process. -->
-    We are using Node.js <script>document.write(process.versions.node)</script>,
-    Chromium <script>document.write(process.versions.chrome)</script>,
-    and Electron <script>document.write(process.versions.electron)</script>.
 
-    <script>
-      // You can also require other files to run in this process
-      require('./renderer.js')
-    </script>
-  </body>
+<head>
+  <script src="./scripts/jquery.min.js"></script>
+  <script src="./scripts/jspsych.js"></script>
+  <script src="./plugins/blink-test-plugin.js"></script>
+
+  <link rel="stylesheet" href="./styles/jspsych.css"/>
+  <link rel="stylesheet" href="./styles/blink-test.css"/>
+</head>
+
+<body>
+<!--
+<form>
+  <div class="input-field">
+    <h2 class="input-label">First Name</h2>
+    <input class="input-box"/>
+  </div>
+</form>
+
+  <div id="loader" class="centert">Loading</div>
+  <div id="jspsych-target"></div>
+-->
+<div style="align-content: center"id="jspsych-target"></div>
+
+</body>
+<script>
+
+    //var loading = setInterval(animateLoader, 100);
+    // var checkForLoad = setInterval(waitForConnection, 500);
+
+    var block_1 = {
+        type: 'blink-test',
+        onSample: function(){
+            console.log("muhahahahaha");
+        }
+
+
+    };
+
+
+
+
+
+
+    jsPsych.init({
+        display_element: $('#jspsych-target'),
+        timeline: [block_1],
+        on_finish: function() {
+            jsPsych.data.displayData();
+        }
+    });
+
+
+
+
+
+
+</script>
+
 </html>

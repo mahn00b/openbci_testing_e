@@ -53,7 +53,7 @@ jsPsych.plugins['blink-test'] = (function(){
 
 
             clearInterval(light_timer);//clear example timer
-            if(plugin.toggle_light) toggleLight();//if light is on turn it off
+            if(plugin.toggle_light === 1) toggleLight();//if light is on turn it off
             display_element.empty();//empty instruction contents
 
             //building test element and append to display
@@ -111,7 +111,7 @@ jsPsych.plugins['blink-test'] = (function(){
         toggleLight();//turn light off
 
         plugin.info.parameters.num_trials--;//deduct number of trials left
-
+        $("#num-trials").text(plugin.info.parameters.num_trials);
         //if there are no more trials left end JsPsych Experiment
         if(plugin.info.parameters.num_trials === 0) jsPsych.endExperiment("Trials over");
         else{
