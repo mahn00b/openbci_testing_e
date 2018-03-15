@@ -2,66 +2,79 @@
 <html>
 
 <head>
-  <script src="./scripts/jquery.min.js"></script>
-  <script src="./scripts/jspsych.js"></script>
-  <script src="./plugins/blink-test-plugin.js"></script>
+    <script src="./scripts/jquery.min.js"></script>
+    <script src="./scripts/jspsych.js"></script>
+    <script src="./plugins/blink-test-plugin.js"></script>
 
-  <link rel="stylesheet" href="./styles/jspsych.css"/>
-  <link rel="stylesheet" href="./styles/blink-test.css"/>
+    <link rel="stylesheet" href="./styles/jspsych.css"/>
+    <link rel="stylesheet" href="./styles/blink-test.css"/>
 </head>
-
 <body>
-<!--
-<form>
-  <div class="input-field">
-    <h2 class="input-label">First Name</h2>
-    <input class="input-box"/>
-  </div>
+<form id="surveyForm">
+    Subject First name:<br>
+    <input type="text" id="firstname"><br>
+    Subject Last name:<br>
+    <input type="text" id="lastname"><br>
+    Experiment Name:<br>
+    <input type="text" id="experiment"><br>
+    <button type="submit" id="submit"> Submit</button>
 </form>
 
-  <div id="loader" class="centert">Loading</div>
-  <div id="jspsych-target"></div>
--->
-<div style="align-content: center"id="jspsych-target"></div>
 
 </body>
 <script>
+    $(document).ready(function () {
+        $("#surveyForm").submit(function (e) {
+            event.preventDefault();
 
-  $.get('/connectHeadset', function(result){
-    console.log("we turn on the headset");
+            var subjectInfo = {
+                subject: $("#firstname").text() + " " + $("#lastname").text(),
+                test: "BlinkTest",
+                iter: 1
+            };
 
+            $("#surveyForm").remove();
 
-
-  });
-
-    //var loading = setInterval(animateLoader, 100);
-    // var checkForLoad = setInterval(waitForConnection, 500);
-
-    var block_1 = {
-        type: 'blink-test',
-        onSample: function(){
-            console.log("muhahahahaha");
-        }
+            $("body").append("<h2 id='loader'>Connecting to HEADSET</h2>" +
+                "<div style='align-content: center' id='jspsych-target'></div>");
 
 
-    };
+            $.get('/connectHeadset', function (result) {
+                console.log("we turn on the headset");
 
 
+                $.get('/startExperiment', subjectInfo, function (e) {
+
+                    var block_1 = {
+                        type: 'blink-test',
+                        onSample: function () {
+
+                            $.get('/collectSample');
+
+                        }
 
 
-    jsPsych.init({
-        display_element: $('#jspsych-target'),
-        timeline: [block_1],
-        on_finish: function() {
-            jsPsych.data.displayData();
-        }
-    });
+                    };
+
+                    jsPsych.init({
+                        display_element: $('#jspsych-target'),
+                        timeline: [block_1],
+                        on_finish: function () {
+                            jsPsych.data.displayData();
+                        }
+                    });
 
 
+                });
 
 
+            });
 
 
+        });
+
+
+    });//document closure
 
 
 </script>

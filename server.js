@@ -1,20 +1,18 @@
 /**
  * Created by Mahmoud on 12/7/2017.
  */
-//const {Cyton} = require('openbci');
-//const APP_UTILITIES = require('source/utilities/app_utilities.js').Core_Utilies;
-//const APP_CONSTANTS = APP_UTILITIES.Constants;
-//const ourBoard = new Cyton({verbose: true});
+
 const path = require('path');
 const express = require('express');
 const app = express();
 const fs = require('fs');
-const Cyton = require('openbci-cyton');
+const Cyton = require('openbci').Cyton;
 
 
 var current_experiment = null;
 var obj = { };
 var port = "/dev/ttyUSB0";
+var otherPort = "COM3";
 var isBoardConnected = false;
 //add static assest: images, icons, stylesheets
 app.use('/scripts', express.static(path.join(__dirname, 'src/scripts')));
@@ -24,7 +22,6 @@ app.use('/plugins', express.static(path.join(__dirname, 'src/plugins')));
 
 //for better optimization I split up images from stylesheets
 app.use('/styles', express.static(path.join(__dirname, 'src/styles')));
-
 
 
 
@@ -39,28 +36,25 @@ app.get('/', function (request, response) {
 });
 
 
-
-
-
-
-app.get('/startScanning', function (req, res) {
 //This is where we will get openbci readings to save to a file
+app.get('/startExperiment', function (req, res) {
 
   if(!isBoardConnected){
+    console.log("Failed to start new experiment");
     response.send(new Error("openbci not connected"));
     return;
   }
 
-
-    var experiment = {
+    current_experiment = {
       subject: req.query.subject || "unknown",
       test: req.query.test || "random_test",
-      iteration: req.query.iter || 0,
-      filePath: path.join(__dirname, data, this.subject, '_', this.test, '_', this.iteration, '.txt');
+      iteration: req.query.iter || 1,
+      filePath: path.join(__dirname, "data", this.subject, this.test + '_' + this.iteration + '.txt'),
       total_patterns: 0,
       patterns: []
-    }
+    };
 
+  console.log("Created a new experiment");
 
 
 });
@@ -69,30 +63,69 @@ app.get('/connectHeadset', function(req, res){
 //request to turn on board
 
 console.log("Request to connect");
-  ourBoard.connect(port).then(function(boardSerial){
+  ourBoard.connect(otherPort).then(function(boardSerial){
       console.log("Board connected");
+
+
       isBoardConnected = true;
 
-      ourBoard.on('sample', function(sample){
 
-        console.log(sample);
+      ourBoard.on('ready', function(sample){
 
       });
 
 
-  });
+  }.catch(function(err){
+      console.log("Error maintaining a connection.")
+
+  }));
 
 
 });
 
 
+app.get('/collectSample', function(req, res){
 
+    if(!current_experiment){
+        res.send(new Error("experiment not initialized"));
+        return;
+    }
+
+    if(!isBoardConnected){
+        response.send(new Error("openbci not connected"));
+        return;
+    }
+
+    ourBoard.startStream().then(function(){
+
+        ourBoard.on('sample', function(sample) {
+
+            addSample(current_experiment, 1,sample);
+
+        });
+
+    }).catch(function(err){
+        console.log("There was an error collecting a sample",err.message);
+    });
+
+
+
+});
+
+
+app.get('/endExperiment', function(req, res) {
+
+    saveExperiment(current_experiment);
+    current_experiment = null;
+    ourBoard.disconnect();
+});
 
 
 
 // Add sample
 function addSample (experiment, output, sample) {
     experiment.total_patterns++;
+    var input = {};
     input['input']=sample.channelData;
     input['output']=[output];
     experiment.patterns.push(input);
@@ -102,12 +135,12 @@ function addSample (experiment, output, sample) {
 
 // Save experiment
 function saveExperiment (experiment) {
-    jsonfile.writeFile(experiment.filePath, experiment, { spaces: 2 }, function (error) {
+    fs.writeFile(experiment.filePath, experiment, { spaces: 2 }, function (error) {
         if (!error) {
-            console.log(experiment.name + ' experiment finished with ' + experiment.patternsTotal  + ' samples');
+            console.log(experiment.test + ' experiment finished with ' + experiment.total_patterns  + ' samples');
             console.log('Experiment path: ' + experiment.filePath);
         } else {
-            console.log(experiment.name + ' experiment failed. sucks to be you.');
+            console.log(experiment.test + ' experiment failed. sucks to be you.');
         }
     });
 }
