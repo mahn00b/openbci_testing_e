@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="./styles/blink-test.css"/>
 </head>
 <body>
-<form id="surveyForm">
+<form id="surveyForm" class="text-center">
     Subject First name:<br>
     <input type="text" id="firstname"><br>
     Subject Last name:<br>
@@ -20,12 +20,14 @@
     <button type="submit" id="submit"> Submit</button>
 </form>
 
+<div id="console"></div>
 
 </body>
 <script>
     $(document).ready(function () {
+
         $("#surveyForm").submit(function (e) {
-            event.preventDefault();
+            e.preventDefault();
 
             var subjectInfo = {
                 subject: $("#firstname").text() + " " + $("#lastname").text(),
@@ -35,47 +37,82 @@
 
             $("#surveyForm").remove();
 
-            $("body").append("<h2 id='loader'>Connecting to HEADSET</h2>" +
+            $("body").append(
                 "<div style='align-content: center' id='jspsych-target'></div>");
 
 
-            $.get('/connectHeadset', function (result) {
-                console.log("we turn on the headset");
+            var block_1 = {
+                type: 'blink-test',
+                onSample: function () {
 
-
-                $.get('/startExperiment', subjectInfo, function (e) {
-
-                    var block_1 = {
-                        type: 'blink-test',
-                        onSample: function () {
-
-                            $.get('/collectSample');
-
+                    $.ajax({
+                        url: "/collectSample",
+                        success: function (result) {
+                            console.log("got a sample");
+                        },
+                        error: function (e) {
+                            console.log("error collecting sample", e.message);
                         }
+                    })
+
+                }
 
 
-                    };
+            };
 
-                    jsPsych.init({
-                        display_element: $('#jspsych-target'),
-                        timeline: [block_1],
-                        on_finish: function () {
-                            jsPsych.data.displayData();
+            jsPsych.init({
+                display_element: $('#jspsych-target'),
+                timeline: [block_1],
+                on_finish: function () {
+                    jsPsych.data.displayData();
+                }
+            });
+        });
+    });//document closure
+
+/*
+            "<h2 id='loader'>Connecting to HEADSET</h2>" +
+            $.ajax({
+                url: '/connectHeadset',
+                success: function (result) {
+                    $("#console").text("DUDE WE IN HERE");
+                    console.log("we turned on the headset");
+                    console.log(result);
+                    $("#loader").empty();
+                    $("#loader").text("Starting experiment");
+                    $.ajax({
+                        url: "/startExperiment",
+                        data: subjectInfo,
+                        dataType: "json",
+                        success: function(result){
+
+
+
+
+
+
+
+
+                        },
+
+                        error:function(e){
+                            console.log("error starting experiment")
                         }
                     });
 
 
-                });
+                },
+                error:function(e){
+                  console.log("Error connecting to headset", e.message);
+
+                }
 
 
             });
 
-
         });
-
-
     });//document closure
-
+*/
 
 </script>
 

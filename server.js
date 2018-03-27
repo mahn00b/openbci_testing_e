@@ -70,15 +70,13 @@ console.log("Request to connect");
       isBoardConnected = true;
 
 
-      ourBoard.on('ready', function(sample){
-
-      });
 
 
-  }.catch(function(err){
+
+  }).catch(function(err){
       console.log("Error maintaining a connection.")
 
-  }));
+  });
 
 
 });
@@ -87,28 +85,50 @@ console.log("Request to connect");
 app.get('/collectSample', function(req, res){
 
     if(!current_experiment){
+        console.log("experiment not initialized");
         res.send(new Error("experiment not initialized"));
         return;
     }
 
     if(!isBoardConnected){
-        response.send(new Error("openbci not connected"));
+        console.log("openbci not connected");
+        res.send(new Error("openbci not connected"));
         return;
     }
 
-    ourBoard.startStream().then(function(){
 
-        ourBoard.on('sample', function(sample) {
 
-            addSample(current_experiment, 1,sample);
+    console.log("Request to connect");
+    ourBoard.connect(otherPort).then(function(boardSerial){
+        console.log("Board connected");
+
+
+        isBoardConnected = true;
+
+
+
+        ourBoard.on('ready', function(){
+
+            ourBoard.startStream().then(function(){
+
+                ourBoard.on('sample', function(sample) {
+
+                    addSample(current_experiment, 1 ,sample);
+
+                });
+
+            }).catch(function(err){
+                console.log("There was an error collecting a sample",err.message);
+            });
+
 
         });
 
+
     }).catch(function(err){
-        console.log("There was an error collecting a sample",err.message);
+        console.log("Error maintaining a connection.")
+
     });
-
-
 
 });
 
@@ -120,6 +140,13 @@ app.get('/endExperiment', function(req, res) {
     ourBoard.disconnect();
 });
 
+
+ourBoard.on('disconnect', function(){
+
+    console.log("Board Disconnected");
+    isBoardConnected = false;
+
+});
 
 
 // Add sample
@@ -145,7 +172,13 @@ function saveExperiment (experiment) {
     });
 }
 
+/*
+Possible way to handle promise rejections, what an annoying bug
 
+process.on("unhandledRejection", (e) => {
+    // handle error
+});
+*/
 
 
 
