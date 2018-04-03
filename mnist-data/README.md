@@ -13,8 +13,8 @@ en Python, for example, one can use the scip libcts the data portioncts the data
 import scipy.io
 import numpy as np
 import scipy.misc as smp
-mat = scipy.io.loadmat('test79.mat’) # loads the data from current directory
-mm = mat['d79’] # extracts the data portion
+mat = scipy.io.loadmat('test79.mat') # loads the data from current directory
+mm = mat['d79'] # extracts the data portion
 mm.shape # gives 2000-by-784
 mmm = mm[45].reshape(28,28) # extract one digit and put in an object
 img = smp.toimage(mmm) # will put in rgb-format
