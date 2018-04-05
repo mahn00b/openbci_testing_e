@@ -56,34 +56,30 @@ app.get('/startExperiment', function (req, res) {
         patterns: []
     };
 
-    ourBoard.connect(otherPort).then(function (boardSerial) {
+    ourBoard.connect(port).then(function (boardSerial) {
         console.log("Board connected");
 
 
         isBoardConnected = true;
 
 
-        ourBoard.on('ready', function () {
+          console.log("Board is Streaming");
+          ourBoard.streamStart();
 
-            ourBoard.startStream().then(function () {
-                res.send(current_experiment);
-                ourBoard.on('sample', function (sample) {
+            res.send(current_experiment);
+            console.log("We have started streaming");
+            ourBoard.on('sample', function (sample) {
 
                     addSample(current_experiment, CURRENT_OUTPUT, sample);
 
                 });
 
-            }).catch(function (err) {
-                console.log("There was an error collecting a sample", err.message);
-            });
 
-
-        });
 
 
     }).catch(function (err) {
-        console.log("Error maintaining a connection.")
-
+        console.log("Error maintaining a connection.");
+        console.log(err.message);
     });
 
 
@@ -132,16 +128,17 @@ app.get('/collectSample', function (req, res) {
     setTimeout(resetOutput, current_experiment.sample_duration);
 
 
-    console.log("Request to connect");
+    console.log("Adjusted output");
 
 });
 
 
 app.get('/endExperiment', function (req, res) {
-
+    conosle.log("Ending Experiment");
     saveExperiment(current_experiment);
     current_experiment = null;
     ourBoard.disconnect();
+    res.send("Dude it's over");
 });
 
 

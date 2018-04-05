@@ -39,7 +39,17 @@
                     error: function (e) {
                         console.log("error collecting sample", e.message);
                     }
-                })
+                }),
+            onFinish: function(){
+              $.ajax({ url: "/endExperiment",
+                        success: function(){
+                          console.log("saved");
+                        },
+                        error:function(err){
+                          console.log("failed to save");
+                        }
+                      });
+            }
 
             }
 
@@ -53,6 +63,7 @@
             var subjectInfo = {
                 subject: $("#firstname").val() + " " + $("#lastname").val(),
                 test: "BlinkTest",
+                sample_duration:1,
                 iter: 1
             };
 
@@ -66,7 +77,6 @@
                 url: '/startExperiment',
                 data: subjectInfo,
                 dataType: 'json',
-                sample_duration:1,
                 success: function () {
 
                     jsPsych.init({
@@ -74,6 +84,7 @@
                         timeline: [block_1],
                         on_finish: function () {
                             jsPsych.data.displayData();
+
                         }
                     });
                 },
