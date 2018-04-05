@@ -26,11 +26,32 @@
 <script>
     $(document).ready(function () {
 
+
+        var block_1 = {
+            type: 'blink-test',
+            onSample: function () {
+
+                $.ajax({
+                    url: "/collectSample",
+                    success: function (result) {
+                        console.log("got a sample");
+                    },
+                    error: function (e) {
+                        console.log("error collecting sample", e.message);
+                    }
+                })
+
+            }
+
+
+        };
+
+
         $("#surveyForm").submit(function (e) {
             e.preventDefault();
 
             var subjectInfo = {
-                subject: $("#firstname").text() + " " + $("#lastname").text(),
+                subject: $("#firstname").val() + " " + $("#lastname").val(),
                 test: "BlinkTest",
                 iter: 1
             };
@@ -41,78 +62,72 @@
                 "<div style='align-content: center' id='jspsych-target'></div>");
 
 
-            var block_1 = {
-                type: 'blink-test',
-                onSample: function () {
-
-                    $.ajax({
-                        url: "/collectSample",
-                        success: function (result) {
-                            console.log("got a sample");
-                        },
-                        error: function (e) {
-                            console.log("error collecting sample", e.message);
-                        }
-                    })
-
-                }
-
-
-            };
-
-            jsPsych.init({
-                display_element: $('#jspsych-target'),
-                timeline: [block_1],
-                on_finish: function () {
-                    jsPsych.data.displayData();
-                }
-            });
-        });
-    });//document closure
-
-/*
-            "<h2 id='loader'>Connecting to HEADSET</h2>" +
             $.ajax({
-                url: '/connectHeadset',
-                success: function (result) {
-                    $("#console").text("DUDE WE IN HERE");
-                    console.log("we turned on the headset");
-                    console.log(result);
-                    $("#loader").empty();
-                    $("#loader").text("Starting experiment");
-                    $.ajax({
-                        url: "/startExperiment",
-                        data: subjectInfo,
-                        dataType: "json",
-                        success: function(result){
+                url: '/startExperiment',
+                data: subjectInfo,
+                dataType: 'json',
+                sample_duration:1,
+                success: function () {
 
-
-
-
-
-
-
-
-                        },
-
-                        error:function(e){
-                            console.log("error starting experiment")
+                    jsPsych.init({
+                        display_element: $('#jspsych-target'),
+                        timeline: [block_1],
+                        on_finish: function () {
+                            jsPsych.data.displayData();
                         }
                     });
-
-
                 },
-                error:function(e){
-                  console.log("Error connecting to headset", e.message);
-
+                error: function () {
+                    console.log("Super man");
                 }
-
-
             });
 
         });
     });//document closure
-*/
+
+    /*
+     "<h2 id='loader'>Connecting to HEADSET</h2>" +
+     $.ajax({
+     url: '/connectHeadset',
+     success: function (result) {
+     $("#console").text("DUDE WE IN HERE");
+     console.log("we turned on the headset");
+     console.log(result);
+     $("#loader").empty();
+     $("#loader").text("Starting experiment");
+     $.ajax({
+     url: "/startExperiment",
+     data: subjectInfo,
+     dataType: "json",
+     success: function(result){
+
+
+
+
+
+
+
+
+     },
+
+     error:function(e){
+     console.log("error starting experiment")
+     }
+     });
+
+
+     },
+     error:function(e){
+     console.log("Error connecting to headset", e.message);
+
+     }
+
+
+     });
+
+     });
+     });//document closure
+     */
 
 </script>
 

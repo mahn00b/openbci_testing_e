@@ -36,17 +36,17 @@ jsPsych.plugins['blink-test'] = (function(){
         if(typeof  trial.onSample === "function")  plugin.info.parameters.onComplete = trial.onComplete;
 
         //on complete experiment
-        if(typeof trial.onFinish === "function") plugin.info.parameters.onFinish = trail.onFinish;
+        if(typeof trial.onFinish === "function") plugin.info.parameters.onFinish = trial.onFinish;
 
 
-
+        //TODO: FIX RANDOMIZED INTERVAL
         plugin.info.parameters.sample_duration = trial.sample_duration || 1;//time for blink light on
         plugin.info.parameters.num_trials = trial.num_trials || 5;//number of trials to take
-        plugin.info.parameters.random_interval = trial.random_interval === true;//if set to true then time between trials will be random
+        plugin.info.parameters.random_interval = false;//if set to true then time between trials will be random
         plugin.info.parameters.time_interval = trial.time_interval || 3;//time interval between trials if not random
 
 
-        //TODO: Create css classes to align elements to the center.
+
        var element =  '<h2 class="text-center">When the test begins, you will see a circle light up<br></h2>'
             + '<h2 class="text-center">(as seen below)</h2>'
            + ' <br><div id="circle" class="circle"></div><br> '
