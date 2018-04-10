@@ -51,7 +51,7 @@ app.get('/startExperiment', function (req, res) {
         test: req.query.test || "random_test",
         sample_duration: req.query.sample_duration*1000,//convert to milliseconds
         iteration: req.query.iter || 1,
-        filePath: path.join(__dirname, "data", req.query.subject, req.query.test + '_' + req.query.iter + '.txt'),
+        filePath: path.join(__dirname, "data", req.query.subject + "_" + req.query.test + '_' + req.query.iter + '.json'),
         total_patterns: 0,
         patterns: []
     };
@@ -134,7 +134,7 @@ app.get('/collectSample', function (req, res) {
 
 
 app.get('/endExperiment', function (req, res) {
-    conosle.log("Ending Experiment");
+    console.log("Ending Experiment");
     saveExperiment(current_experiment);
     current_experiment = null;
     ourBoard.disconnect();
@@ -162,8 +162,10 @@ function addSample(experiment, output, sample) {
 
 // Save experiment
 function saveExperiment(experiment) {
-    fs.writeFile(experiment.filePath, experiment, {spaces: 2}, function (error) {
+    console.log("Starting to save file", experiment.filePath);
+    fs.writeFile(experiment.filePath, JSON.stringify(experiment), {spaces: 2}, function (error) {
         if (!error) {
+            JSON.parse(experiment);
             console.log(experiment.test + ' experiment finished with ' + experiment.total_patterns + ' samples');
             console.log('Experiment path: ' + experiment.filePath);
         } else {

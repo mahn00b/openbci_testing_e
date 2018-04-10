@@ -39,7 +39,8 @@
                     error: function (e) {
                         console.log("error collecting sample", e.message);
                     }
-                }),
+                })},
+
             onFinish: function(){
               $.ajax({ url: "/endExperiment",
                         success: function(){
@@ -51,17 +52,16 @@
                       });
             }
 
-            }
+          };
 
-
-        };
 
 
         $("#surveyForm").submit(function (e) {
-            e.preventDefault();
 
+            e.preventDefault();
+            console.log("wtf");
             var subjectInfo = {
-                subject: $("#firstname").val() + " " + $("#lastname").val(),
+                subject: $("#firstname").val() + "_" + $("#lastname").val(),
                 test: "BlinkTest",
                 sample_duration:1,
                 iter: 1
