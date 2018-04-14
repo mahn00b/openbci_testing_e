@@ -1,58 +1,31 @@
-var PythonShell = require('python-shell');
 var Cyton = require('openbci').Cyton;
 
 var port = "/dev/ttyUSB1";
 
 var ourboard = new Cyton();
 
-var py = new PythonShell('./predictor.py', {mode: 'text'});
+var PythonShell = require('python-shell');
+var pyshell = new PythonShell('./predictor.py');
 
-py.on('message', function(data){
-    console.log("we got some python stuff");
-    console.log(data);
-
-});
-
-py.on('error', function(err){
-
-  console.log('Python messed up', err.message);
-});
-
-
+pyshell.send(JSON.stringify([0, 1]));
 ourboard.connect(port).then(function(boardSerial){
     console.log("Board connected");
 
+    ourboard.streamStart();
+    ourboard.on('sample', function(sample){
+        //here is where we need to send to the python file
+        //we seem to have issues when we send multiple times
+    })
+        pyshell.on('message', function (message) {
+            // received a message sent from the Python script (a simple "print" statement)
+            console.log(message);
+        });
+        // end the input stream and allow the process to exit
+        pyshell.end(function (err) {
+            if (err){
+                throw err;
+            };
 
-    py.send({test: 'testing'});
-
-      // ourboard.streamStart();
-      //
-      // ourboard.on('sample', function(sample){
-      //
-      //   py.send(JSON.stringify(sample.channelData));
-      //
-      // });
-      //
-
-  py.receive("dude");
-
-
-ourboard.on('disconnect', function(){
-
-  py.end(function(err){
-    if(err){
-      throw err;
-    };
-    consol.log(finished);
-  });
-
-});
-
-
-
-
-
-
-}).catch(function(err){
-  console.log("error connecting to openbci", err.message);
+            console.log('finished');
+        });
 });
