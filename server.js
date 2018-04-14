@@ -7,6 +7,7 @@ const express = require('express');
 const app = express();
 const fs = require('fs');
 const Cyton = require('openbci').Cyton;
+const Crypto = require('crypto');
 
 var CURRENT_OUTPUT = 0;
 var current_experiment = null;
@@ -45,13 +46,17 @@ app.get('/startExperiment', function (req, res) {
      */
     console.log("Query Request", req.query);
 
+      var personal_info = req.query.subject + "_" + req.query.test + '_' + req.query.iter;
+
+      const hash = Crypto.createHash('sha256');
+        hash.update(personal_info)
+        var superman = hash.digest('hex');
 
     current_experiment = {
-        subject: req.query.subject || "unknown",
         test: req.query.test || "random_test",
         sample_duration: req.query.sample_duration*1000,//convert to milliseconds
         iteration: req.query.iter || 1,
-        filePath: path.join(__dirname, "data", req.query.subject + "_" + req.query.test + '_' + req.query.iter + '.json'),
+        filePath: path.join(__dirname, "data", superman + '.json'),
         total_patterns: 0,
         patterns: []
     };
@@ -154,6 +159,7 @@ ourBoard.on('disconnect', function () {
 function addSample(experiment, output, sample) {
     experiment.total_patterns++;
     var input = {};
+//    input['input'] = [sample.channelData[0], sample.channelData[1]];
     input['input'] = sample.channelData;
     input['output'] = [output];
     experiment.patterns.push(input);
@@ -165,9 +171,10 @@ function saveExperiment(experiment) {
     console.log("Starting to save file", experiment.filePath);
     fs.writeFile(experiment.filePath, JSON.stringify(experiment), {spaces: 2}, function (error) {
         if (!error) {
-            JSON.parse(experiment);
-            console.log(experiment.test + ' experiment finished with ' + experiment.total_patterns + ' samples');
-            console.log('Experiment path: ' + experiment.filePath);
+            //JSON.parse(experiment);
+            //console.log(experiment.test + ' experiment finished with ' + experiment.total_patterns + ' samples');
+            //console.log('Experiment path: ' + experiment.filePath);
+            console.log("Successfully Saved!");
         } else {
             console.log(experiment.test + ' experiment failed. sucks to be you.');
         }

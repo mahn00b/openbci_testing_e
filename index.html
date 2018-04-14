@@ -59,11 +59,11 @@
         $("#surveyForm").submit(function (e) {
 
             e.preventDefault();
-            console.log("wtf");
+
             var subjectInfo = {
                 subject: $("#firstname").val() + "_" + $("#lastname").val(),
                 test: "BlinkTest",
-                sample_duration:1,
+                sample_duration:.15,
                 iter: 1
             };
 

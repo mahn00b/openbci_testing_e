@@ -21,8 +21,11 @@
   },
   "homepage": "https://github.com/mahn00b/openbci_testing_e#readme",
   "dependencies": {
+    "child_process": "^1.0.2",
+    "crypto": "^1.0.1",
     "express": "^4.16.3",
     "openbci": "^3.0.0",
-    "openbci-cyton": "^1.1.2"
+    "openbci-cyton": "^1.1.2",
+    "python-shell": "^0.5.0"
   }
 }

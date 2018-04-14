@@ -7,7 +7,7 @@ jsPsych.plugins['blink-test'] = (function(){
         parameters: {
             samples: 5, //number of blinks to take
             interval: 5, //number of intervals
-            sample_duration:1, //time to keep light on
+            sample_duration:.15, //time to keep light on
             randomized: false,//allow random intervals
             toggle_light:0,//constant to toggle light
             light_on: "#fc9c92",//bright light color
@@ -125,7 +125,7 @@ jsPsych.plugins['blink-test'] = (function(){
         //if there are no more trials left end JsPsych Experiment
         if(plugin.info.parameters.num_trials === 0){
  jsPsych.endExperiment("Trials over");
-	plugin.info.parameters.onFinish();      
+	plugin.info.parameters.onFinish();
 }else{
 
             //create a new time from the time_interval
