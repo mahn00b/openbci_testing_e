@@ -29,6 +29,8 @@
 
         var block_1 = {
             type: 'blink-test',
+            num_trials:10,
+            time_interval:2,
             onSample: function () {
 
                 $.ajax({
@@ -39,7 +41,8 @@
                     error: function (e) {
                         console.log("error collecting sample", e.message);
                     }
-                })},
+                });
+              },
 
             onFinish: function(){
               $.ajax({ url: "/endExperiment",

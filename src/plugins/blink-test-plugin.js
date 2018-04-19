@@ -38,9 +38,9 @@ jsPsych.plugins['blink-test'] = (function(){
 
 
         plugin.info.parameters.sample_duration = trial.sample_duration || 1;//time for blink light on
-        plugin.info.parameters.num_trials = trial.num_trials || 5;//number of trials to take
+        plugin.info.parameters.samples = trial.num_trials || 5;//number of trials to take
         plugin.info.parameters.random_interval = trial.random_interval === true;//if set to true then time between trials will be random
-        plugin.info.parameters.time_interval = trial.time_interval || 3;//time interval between trials if not random
+        plugin.info.parameters.interval = trial.time_interval || 3;//time interval between trials if not random
 
 
         //TODO: Create css classes to align elements to the center.
@@ -72,10 +72,10 @@ jsPsych.plugins['blink-test'] = (function(){
             display_element.append(element);
 
             //create a time interval
-            var time = plugin.info.parameters.time_interval * 1000;
+            var time = plugin.info.parameters.interval * 1000;
 
             //if time is randomized we will be a random time between 1 and chosen time_interval
-            if(plugin.info.parameters.randomized) time = randomTime(plugin.info.parameters.time_interval);
+            //if(plugin.info.parameters.randomized) time = randomTime(plugin.info.parameters.time_interval);
 
             //time next trial
             setTimeout(performTrial, time);
@@ -120,18 +120,19 @@ jsPsych.plugins['blink-test'] = (function(){
 
         toggleLight();//turn light off
 
-        plugin.info.parameters.num_trials--;//deduct number of trials left
-        $("#num-trials").text(plugin.info.parameters.num_trials);
+        plugin.info.parameters.samples--;//deduct number of trials left
+        $("#num-trials").text(plugin.info.parameters.samples);
         //if there are no more trials left end JsPsych Experiment
-        if(plugin.info.parameters.num_trials === 0){
- jsPsych.endExperiment("Trials over");
-	plugin.info.parameters.onFinish();
-}else{
+        if(plugin.info.parameters.samples === 0){
+          console.log("is it over?");
+          jsPsych.endExperiment("Trials over");
+	         plugin.info.parameters.onFinish();
+         }else{
 
             //create a new time from the time_interval
-            var time = plugin.info.parameters.time_interval * 1000;
+            var time = plugin.info.parameters.interval * 1000;
             //if randomized get a random time
-            if(plugin.info.parameters.random_interval) time = randomTime(plugin.info.parameters.time_interval);
+            //if(plugin.info.parameters.random_interval) time = randomTime(plugin.info.parameters.time_interval);
 
             //set timer for next trial
             setTimeout(performTrial, time);

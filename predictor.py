@@ -43,7 +43,7 @@ def read_in():
     return json.loads(lines[0])
 
 def main():
-    nn = pickle.load(open('./nn/blink.pk1', 'rb'))
+    nn = pickle.load(open('./nn/blink2.pk1', 'rb'))
 
     #get our data as an array from read_in()
     lines = read_in()
@@ -51,7 +51,7 @@ def main():
     print lines
     outputs = nn.predict(lines)
     total_blinks = np.sum(outputs)
-    print outputs
+    print total_blinks
     # print total_blinks
     # total_blinks = (float(total_blinks)/float(len(outputs)))
     # print total_blinks

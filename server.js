@@ -58,6 +58,7 @@ app.get('/startExperiment', function (req, res) {
         iteration: req.query.iter || 1,
         filePath: path.join(__dirname, "data", superman + '.json'),
         total_patterns: 0,
+        date: new Date().toLocaleString(),
         patterns: []
     };
 
@@ -132,6 +133,7 @@ app.get('/collectSample', function (req, res) {
 
     setTimeout(resetOutput, current_experiment.sample_duration);
 
+    res.send("sample collected");
 
     console.log("Adjusted output");
 
@@ -182,7 +184,7 @@ function saveExperiment(experiment) {
 }
 
 
-function resetOutput() { CURRENT_OUTPUT = 0}
+ function resetOutput() { CURRENT_OUTPUT = 0}
 
 
 /*
