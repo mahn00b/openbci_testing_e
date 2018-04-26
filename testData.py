@@ -10,7 +10,7 @@ from sklearn.preprocessing import StandardScaler
 #TODO: use scaler to scale data see scikit-learn 1.17.8
 # scaler = StandardScaler()
 
-parsed_json = json.load(open('./data/970119f9d2cafdd10415a413f64a107a4d1ad6207aff7c614512c628fb60c0ee.json'))
+parsed_json = json.load(open('./data/mac_dude_BlinkTest_1.json'))
 patterns = parsed_json['patterns']
 total_patterns = parsed_json['total_patterns']
 
