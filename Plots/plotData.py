@@ -11,45 +11,22 @@ from sklearn.neural_network import MLPClassifier
 from sklearn.preprocessing import StandardScaler
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import KFold
-from sklearn.cross_validation import KFold
-from sklearn.neighbors import KNeighborsClassifier
 from sklearn.cross_validation import cross_val_score
 from sklearn import metrics
 
-def KNeighborsPlot(inputs, outputs):
+def KF(inputs, outputs, layer_sizes):
     X = inputs
     y = outputs
-    k_range = range(1,101)
     k_scores = []
-
-    for k in k_range:
-        knn = KNeighborsClassifier(n_neighbors=k)
-        scores = cross_val_score(knn, X, y, cv=10, scoring='accuracy')
-        k_scores.append(scores.mean())
-    print k_scores
-
-    plt.plot(k_range, k_scores)
-    plt.xlabel('Value of K for KNN')
-    plt.ylabel('Cross-validated accuracy')
-    plt.show()
-
-def KNeighbors(inputs, outputs):
-    X = inputs
-    y = outputs
-    X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=6)
-    knn = KNeighborsClassifier(n_neighbors=15)
-    knn.fit(X_train, y_train)
-    y_pred = knn.predict(X_test)
-    metrics.accuracy_score(y_test, y_pred)
-
-def KFolds(inputs, outputs):
-    kf = KFold(n_splits=10)
-    clf = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(1000, ), random_state=1, activation = 'logistic')
+    kf = KFold(n_splits=3)
+    clf = MLPClassifier(solver='sgd', alpha=1e-5, hidden_layer_sizes= layer_sizes, random_state=1, activation = 'logistic')
+    i = 0
 
     for train_indices, test_indices in kf.split(X):
         clf.fit(X[train_indices], y[train_indices])
-        print(clf.score(X[test_indices], y[test_indices]))
+        k_scores.append(clf.score(X[test_indices], y[test_indices]))
 
+    return np.array(k_scores).mean()
 
 parsed_json = json.load(open('../data/mac_dude_BlinkTest_1.json'))
 patterns = parsed_json['patterns']
@@ -67,4 +44,22 @@ for (pattern) in patterns[1:]:
     outputs[i] = np.float64(pattern['output'][0])
     i+=1
 
-KNeighborsPlot(inputs, outputs)
+scores = []
+start_size = 2100
+gap = 300
+params = (100, 100)
+line = []
+
+for amount in range(start_size, total_patterns, gap):
+    scores.append(KF(inputs[0:amount], outputs[0:amount], params))
+
+line.append()
+plt.plot(range(start_size, total_patterns, gap), scores)
+plt.plot(range(start_size, total_patterns, gap), np.array(scores)-.5)
+
+plt.xlabel('Sample Size')
+plt.ylabel('Accuracy')
+plt.title('Classifier Accuracy - SGD - ' + str(params))
+plt.ylim(0, 1.1)
+plt.xlim(1999, 12001)
+plt.show()
