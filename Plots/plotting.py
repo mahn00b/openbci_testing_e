@@ -1,65 +1,37 @@
-from pandas import Series
-from pandas import DataFrame
-from pandas import TimeGrouper
-from matplotlib import pyplot
-import numpy as np
 import json
+import numpy as np
+import matplotlib.pyplot as plt
+import pandas as pd
 
-parsed_json = json.load(open('../data/mac_dude_BlinkTest_1.json'))
-patterns = parsed_json['patterns']
-inputs = map(lambda p: p['input'], patterns[2:])
-for inputed in inputs:
-    if(np.sum(inputed) == 0):
-        print(inputed)
-series = Series(inputs)
-nodes = DataFrame(data = inputs)
+#best file= mac_dude_BlinkTest_1.json
+#second best = a88ac021f60d23d32aec7764199fcfcf64c3784548eedc852c90f6a4baa24f48.json
+filename = open('../data/mac_dude_BlinkTest_1.json', 'r')
 
-ylims = [(-.009, -.006), (-.009, -.006), (-.009, -.006), \
-(-.009, -.006), (-.009, -.006), (-.009, -.006), (-.009, -.006), (-.009, -.006)]
+#loads json file
+data = json.load(filename)
 
-ax = nodes.plot(subplots = True)
-print series.min()
-print series.max()
+#stores only the eeg data
+eeg = np.array(data['patterns'])
 
+#maps the node number to the data2
+inputs = map(lambda p: p['input'], eeg[2:])
+#puts data into a list
+inputs = list(inputs)
+#puts data into an array
+inputs = np.array(inputs)
+#turns into datafram
+df = pd.DataFrame(data=inputs)
+#plots the data
+ax = df.plot(subplots = True)
+
+#Labels each subgraph
 for i,axes in enumerate(ax):
     axes.set_ylim(auto = True)
     axes.set_yticklabels(' ')
-    axes.legend(str(i + 1))
-    # print axes.set_ylabel(i)
-    # axes.set_ylim(series.min()[i], series.max()[i])
-    # print [series.min()[i], series.max()[i]]
-# pyplot.subplot(8, 1, 1)
-# pyplot.ylabel('Node 1')
-# pyplot.ylim(-.009, -.006)
-# pyplot.autoscale(enable = True)
-#
-# pyplot.subplot(8, 1, 2)
-# pyplot.ylabel('Node 2')
-# pyplot.ylim(-.009, -.006)
-#
-#
-# pyplot.subplot(8, 1, 3)
-# pyplot.ylabel('Node 3')
-# pyplot.ylim(-.009, -.006)
-#
-# pyplot.subplot(8, 1, 4)
-# pyplot.ylabel('Node 4')
-# pyplot.ylim(-.009, -.006)
-#
-# pyplot.subplot(8, 1, 5)
-# pyplot.ylabel('Node 5')
-# pyplot.ylim(-.009, -.006)
-#
-# pyplot.subplot(8, 1, 6)
-# pyplot.ylabel('Node 6')
-# pyplot.ylim(-.009, -.006)
-#
-# pyplot.subplot(8, 1, 7)
-# pyplot.ylabel('Node 7')
-# pyplot.ylim(-.009, -.006)
-#
-# pyplot.subplot(8, 1, 8)
-# pyplot.ylabel('Node 8')
-# pyplot.ylim(-.009, -.006)
+    axes.legend(str(i + 1), loc = "upper left")
 
-pyplot.show()
+#Title of the Graph with larger font
+plt.suptitle("Raw EEG Blink Data", fontsize=16)
+
+#show the graph
+plt.show()
